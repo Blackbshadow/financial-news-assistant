@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Finance News Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <header className="app-header">
+  <h1>Finance News Assistant</h1>
+  <p className="app-subtitle">
+    Paste financial news and get a clear, simple explanation.
+  </p>
+</header>
+
+<section className="section">
+  <h2 className="section-title">1. Paste the news</h2>
+  <NewsInput ... />
+  {status && <div className="status-text">{status}</div>}
+</section>
+
+<section className="section">
+  <h2 className="section-title">2. Explanation</h2>
+  <ImpactBadge level={impactLevel} />
+  <ResultBox explanation={explanation} />
+</section>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
