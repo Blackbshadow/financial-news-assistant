@@ -4,6 +4,7 @@ import { explainNews } from "./api";
 import NewsInput from "./components/NewsInput";
 import ResultBox from "./components/ResultBox";
 import ImpactBadge from "./components/ImpactBadge";
+import SentimentBadge from "./components/SentimentBadge";
 
 function App() {
   const [newsText, setNewsText] = useState("");
@@ -11,6 +12,7 @@ function App() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [impactLevel, setImpactLevel] = useState("");
+  const [sentiment, setSentiment] = useState("");
 
   const handleExplain = async () => {
     if (!newsText.trim()) return;
@@ -19,10 +21,14 @@ function App() {
     setStatus("Explaining the news...");
     setExplanation("");
     setImpactLevel("");
+    setSentiment("");
 
     try {
       const result = await explainNews(newsText);
-      setExplanation(result);
+      setExplanation(typeof result === "object" ? result.explanation : result);
+      if (result && result.sentiment) {
+        setSentiment(result.sentiment);
+      }
 
       const len = newsText.length;
       if (len < 400) setImpactLevel("low");
@@ -55,7 +61,10 @@ function App() {
 
       {status && <div className="status-text">{status}</div>}
 
-      <ImpactBadge level={impactLevel} />
+      <div className="badges-container">
+        <ImpactBadge level={impactLevel} />
+        <SentimentBadge sentiment={sentiment} />
+      </div>
 
       <ResultBox explanation={explanation} />
     </div>

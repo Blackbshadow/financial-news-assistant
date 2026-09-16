@@ -26,5 +26,5 @@ export async function explainNews(text) {
   }
 
   const data = await res.json();
-  return data.explanation;
+  return data;
 }

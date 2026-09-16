@@ -11,7 +11,8 @@ Paste any finance article or paragraph, and the assistant returns a clear explan
 3. “Explain like I’m 15” section for easy understanding.
 4. Key financial terms highlighted and explained in one line each.
 5. Impact badge (Low / Medium / High) to indicate potential market impact.
-6. Frontend–backend separation:
+6. Sentiment indicator (Positive / Neutral / Negative) to assess news sentiment.
+7. Frontend–backend separation:
   - React + Vite frontend.
   - FastAPI backend calling a local LLM (Ollama).
 
@@ -50,7 +51,8 @@ financial-news-assistant/
    │   ├─ components/
    │   │   ├─ NewsInput.jsx
    │   │   ├─ ResultBox.jsx
-   │   │   └─ ImpactBadge.jsx
+   │   │   ├─ ImpactBadge.jsx
+   │   │   └─ SentimentBadge.jsx
    │   ├─ api.js
    │   ├─ App.jsx
    │   └─ main.jsx
@@ -148,6 +150,8 @@ Key financial terms with one‑line definitions.
 
 An impact badge indicating estimated market impact.
 
+A sentiment indicator (Positive / Neutral / Negative).
+
 Environment Variables
 Backend (backend/.env):
 
@@ -159,8 +163,6 @@ Ollama runs locally and does not require an API key.
 
 ### Future Improvements:
 Detect companies and stock tickers mentioned in the news.
-
-Show sentiment (positive / neutral / negative) for the news.
 
 Add a history panel of recently explained articles.
 
