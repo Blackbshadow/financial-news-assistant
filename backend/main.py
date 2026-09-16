@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from explanations import explain_news  # no dot here
+from news_processor import analyze_sentiment
 
 app = FastAPI()
 
@@ -23,6 +24,7 @@ class NewsRequest(BaseModel):
 
 class ExplanationResponse(BaseModel):
     explanation: str
+    sentiment: str = "Neutral"
 
 @app.get("/health")
 def health():
@@ -32,9 +34,10 @@ def health():
 def explain_endpoint(payload: NewsRequest):
     try:
         if not payload.text.strip():
-            return {"explanation": "No news text provided."}
+            return {"explanation": "No news text provided.", "sentiment": "Neutral"}
         result = explain_news(payload.text)
-        return {"explanation": result}
+        sentiment = analyze_sentiment(payload.text)
+        return {"explanation": result, "sentiment": sentiment}
     except Exception as e:
         print("ERROR in /api/explain:", repr(e))
         raise HTTPException(status_code=500, detail=str(e))
